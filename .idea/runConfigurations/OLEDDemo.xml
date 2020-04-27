@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="OLEDDemo" type="Run as an Embedded Java application" factoryName="Embedded Linux JVM">
+    <option name="classesDirectory" />
+    <option name="hostname" value="192.168.2.117" />
+    <option name="keyPath" value="" />
+    <option name="password" value="raspberry" />
+    <option name="port" value="1234" />
+    <option name="programArguments" value="" />
+    <option name="runAsRoot" value="false" />
+    <option name="sshPort" value="22" />
+    <option name="username" value="pi" />
+    <option name="usingKey" value="false" />
+    <option name="vmParameters" value="" />
+    <option name="moduleName" value="RPi-1.5-OLED" />
+    <option name="mainclass" value="OLED.OLEDDemo" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
