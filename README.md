@@ -10,7 +10,7 @@ Raspberry Pi library to control Waveshare 1.5" OLED SPI module using Pi4J
 Raspbian Buster Lite (Version: February 2020)  
 *https://www.raspberrypi.org/downloads/raspbian/*
 
-#### RPi Java Environment
+#### Installed software
 
 **OpenJDK 11**
 
@@ -65,7 +65,7 @@ Useful to download the correct SDK version.
 After installing the plugin you can download SDK *build 11.0.7*.
 You can find the *Choose Runtime* dialog by searching "*Choose Runtime*" under *Help->Find action...*. 
 The downloaded Runtime can be added under *File->Project Structure...->SDKs*. 
-The SDK path may be something like */home/<username>/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2020.1/jdks/jbrsdk-11_0_7-linux-x64-b875.1/jbrsdk*.
+The SDK path may be something like */home/username/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2020.1/jdks/jbrsdk-11_0_7-linux-x64-b875.1/jbrsdk*.
 
 If you are using a higher SDK version it may be possible to change the *Language Level* under *File->Project Structure...->Project* to 11. 
 
