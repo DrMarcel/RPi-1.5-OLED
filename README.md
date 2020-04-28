@@ -10,7 +10,7 @@ Raspberry Pi library to control Waveshare 1.5" oled SPI module using Pi4J
 Raspbian Buster Lite (Version: February 2020)  
 *https://www.raspberrypi.org/downloads/raspbian/*
 
-#### Installed software
+#### Software
 
 **OpenJDK 11**
 
@@ -35,7 +35,7 @@ Raspbian Buster Lite (Version: February 2020)
 Enable ssh by adding an empty file named "*ssh*" in the boot partition of the RPi SD card.
 SSH is needed for remote debugging.
 
-### Hardware
+#### Hardware
 
 *TODO*
 
