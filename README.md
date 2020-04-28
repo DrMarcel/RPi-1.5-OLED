@@ -1,5 +1,5 @@
-# RPi-1.5-OLED
-Raspberry Pi library to control Waveshare 1.5" OLED SPI module using Pi4J
+# RPi-1.5-oled
+Raspberry Pi library to control Waveshare 1.5" oled SPI module using Pi4J
 
 ## Build Environment
 
@@ -42,10 +42,10 @@ SSH is needed for remote debugging.
 ### Quick test
 
 You can check if your setup works by simply cloning this repo directly to your RPi and run "*OLEDDemo.sh*".
-This will run the pre-compiled OLED demo.
+This will run the pre-compiled oled demo.
 
-`git clone https://github.com/DrMarcel/RPi-1.5-OLED.git`  
-`cd RPi-1.5-OLED`  
+`git clone https://github.com/DrMarcel/RPi-1.5-oled.git`  
+`cd RPi-1.5-oled`  
 `./OLEDDemo.sh`  
 
 ### IDE

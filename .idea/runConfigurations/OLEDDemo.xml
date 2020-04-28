@@ -12,7 +12,7 @@
     <option name="usingKey" value="false" />
     <option name="vmParameters" value="" />
     <option name="moduleName" value="RPi-1.5-OLED" />
-    <option name="mainclass" value="OLED.OLEDDemo" />
+    <option name="mainclass" value="oled.OLEDDemo" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
