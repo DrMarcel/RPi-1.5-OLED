@@ -38,7 +38,7 @@ SSH is needed for remote debugging.
 #### Hardware
 
 The display is connected via SPI. The wiring is shown in the image below.
-![Pinout](https://github.com/DrMarcel/RPi-1.5-OLED/GPIO-Pinout-Diagram-OLED.png "GPIO wiring")
+![Pinout](https://github.com/DrMarcel/RPi-1.5-OLED/blob/master/GPIO-Pinout-Diagram-OLED.png "GPIO wiring")
 
 ### Quick test
 
