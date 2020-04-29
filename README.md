@@ -1,5 +1,14 @@
 # RPi-1.5-oled
-Raspberry Pi Java library to control Waveshare 1.5" RGB OLED SPI module (SSD1351) using Pi4J.
+Raspberry Pi Java library to control Waveshare 1.5" RGB OLED SPI module (SSD1351 display controller) using Pi4J.
+
+## Summary
+
+* 262k color mode (6:6:6)
+* SPI clock 32MHz
+* Draw content by Java Graphics Object in dedicated paint method
+* Paint method on main thread, bus communication on background thread
+* Automatic and manual repaint possible
+* Quick change between different OLEDContent objects
 
 ## Build Environment
 
