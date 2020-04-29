@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+@SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal", "SameParameterValue", "CanBeFinal"})
 public class OLED
 {
     private static final int WIDTH = 128, HEIGHT = 128;
@@ -30,11 +31,11 @@ public class OLED
 
     /**
      * Create new OLED Object
-     * @param gpioController Initilized GPIO controller
+     * @param gpioController Initialized GPIO controller
      * @param pinRST Reset Pin
      * @param pinDC DC Pin
      * @param channel SPI channel
-     * @throws OLEDException
+     * @throws OLEDException OLED Exception
      */
     public OLED(GpioController gpioController, Pin pinRST, Pin pinDC, SpiChannel channel) throws OLEDException
     {
@@ -66,34 +67,31 @@ public class OLED
     private AtomicBoolean writeBusy     = new AtomicBoolean(false);
 
     private Thread   WriteDisplayBufferThread;
-    private Runnable WriteDisplayBufferRunner = new Runnable()
+    private Runnable WriteDisplayBufferRunner = () ->
     {
-        @Override
-        public void run()
+        //Data structure [B,G,R,B,G,R,...]
+        int[] data = new int[WIDTH * HEIGHT * 3];
+        data = displayBuffer.getData().getPixels(0, 0, WIDTH, HEIGHT, data);
+
+        //Shift display buffer data to 6:6:6 format
+        byte[] bdata = new byte[WIDTH * HEIGHT * 3];
+        for(int i = 0; i < WIDTH * HEIGHT * 3; i++)
+            bdata[i] = (byte) (0xFF & (data[i] >> 2));
+
+        final int parLines = 4; // send 4 lines at once - maximum payload length restricted by the SPI driver
+        for(int i = 0; i < HEIGHT / parLines; i++)
         {
-            //Data structure [B,G,R,B,G,R,...]
-            int[] data = new int[WIDTH * HEIGHT * 3];
-            data = displayBuffer.getData().getPixels(0, 0, WIDTH, HEIGHT, data);
-
-            //Shift display buffer data to 6:6:6 format
-            byte[] bdata = new byte[WIDTH * HEIGHT * 3];
-            for(int i = 0; i < WIDTH * HEIGHT * 3; i++)
-                bdata[i] = (byte) (0xFF & (data[i] >> 2));
-
-            final int parLines = 4; // send 4 lines at once - maximum payload lenght restricted by the SPI driver
-            for(int i = 0; i < HEIGHT / parLines; i++)
+            //noinspection CatchMayIgnoreException
+            try
             {
-                try
-                {
-                    Write(WRITE_COMMAND, Arrays.copyOfRange(bdata, i * 128 * 3 * parLines, (i + 1) * 128 * 3 * parLines));
-                }
-                catch(OLEDException e)
-                {
-                }
+                Write(WRITE_COMMAND, Arrays.copyOfRange(bdata, i * 128 * 3 * parLines, (i + 1) * 128 * 3 * parLines));
             }
-
-            writeBusy.set(false);
+            catch(OLEDException e)
+            {
+            }
         }
+
+        writeBusy.set(false);
     };
 
     /**
@@ -102,18 +100,18 @@ public class OLED
      */
     public void RepaintIfNeeded()
     {
-        //Check if content to draw avaiable and no write operation active
+        //Check if content to draw available and no write operation active
         if(content != null && !writeBusy.get())
         {
             //Calculate time since last repaint
-            int dt = (int) (System.currentTimeMillis() - content.lastRepaintMilllis);
+            int dt = (int) (System.currentTimeMillis() - content.lastRepaintMillis);
             //if autorefresh is set and refresh time exceeds request repaint
             if(content.autorefresh && dt > 1000 / content.framerate) content.Invalidate();
 
             //Check if content needs repaint - may be triggered from the OLEDContent Object or by the autorefresh timer
             if(content.Invalidated())
             {
-                content.lastRepaintMilllis = System.currentTimeMillis();
+                content.lastRepaintMillis = System.currentTimeMillis();
                 content.Paint(displayBuffer.getGraphics());
                 //Send new data to OLED
                 writeBusy.set(true);
@@ -140,27 +138,21 @@ public class OLED
     /**
      * Remove current display content
      */
-    public void ClearScreen()
+    public void ClearScreen() throws OLEDException
     {
         SetContent(null);
 
         //Empty data
-        final int parLines = 4; // send 4 lines at once - maximum payload lenght restricted by the SPI driver
+        final int parLines = 4; // send 4 lines at once - maximum payload length restricted by the SPI driver
         byte[] lclear = new byte[WIDTH * HEIGHT * 3 / parLines];
         for(int i = 0; i < HEIGHT / parLines; i++)
         {
-            try
-            {
-                Write(WRITE_COMMAND, lclear);
-            }
-            catch(OLEDException e)
-            {
-            }
+            Write(WRITE_COMMAND, lclear);
         }
     }
 
     /**
-     * Abstract diplay content class. To draw on the display extend this class and set the display content
+     * Abstract display content class. To draw on the display extend this class and set the display content
      * with oled.SetContent(...). The Paint(...)-method will be called every time the display needs a redraw. This
      * can be triggered manually by calling the Invalidate()-method within the OLEDContent object or automatically
      * if auto refresh is enabled. To enable the auto refresh call EnableAutoRefresh(...).
@@ -171,8 +163,8 @@ public class OLED
     {
         private AtomicBoolean repaint            = new AtomicBoolean(false);
         private boolean       autorefresh        = false;
-        private int           framerate          = 20;
-        private long          lastRepaintMilllis = 0;
+        private int  framerate         = 20;
+        private long lastRepaintMillis = 0;
 
         /**
          * Enable auto refresh to call Paint(...) automatically with the given framerate
@@ -225,6 +217,7 @@ public class OLED
         System.out.println("[OLED]: Reset");
 
         RST.low();
+        //noinspection CatchMayIgnoreException
         try
         {
             Thread.sleep(500);
@@ -233,6 +226,7 @@ public class OLED
         {
         }
         RST.high();
+        //noinspection CatchMayIgnoreException
         try
         {
             Thread.sleep(500);
@@ -244,7 +238,7 @@ public class OLED
 
     /**
      * Initialize display parameters
-     * @throws OLEDException
+     * @throws OLEDException OLED Exception
      */
     private void Initialize() throws OLEDException
     {
@@ -260,7 +254,7 @@ public class OLED
         Write((byte) 0x15, (byte) 0, (byte) 127);    //set column address 0-127
         Write((byte) 0x75, (byte) 0, (byte) 127);    //set row address 0-127
 
-        Write((byte) 0xB3, (byte) 0xF0); //Set diplay frequency (b7-b4) and Prescaler (b3-b0)
+        Write((byte) 0xB3, (byte) 0xF0); //Set display frequency (b7-b4) and Prescaler (b3-b0)
 
         Write((byte) 0xa0, (byte) 0xA6);  //set re-map (mirror screen), data format (6:6:6), Reverse Color order RGB->BGR
 
@@ -285,7 +279,7 @@ public class OLED
     /**
      * Send command
      * @param command Command to send
-     * @throws OLEDException
+     * @throws OLEDException OLED Exception
      */
     private void Write(byte command) throws OLEDException
     {
@@ -296,7 +290,7 @@ public class OLED
      * Send command with parameter
      * @param command Command to send
      * @param d1 Command parameter
-     * @throws OLEDException
+     * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte d1) throws OLEDException
     {
@@ -308,7 +302,7 @@ public class OLED
      * @param command Command to send
      * @param d1 Command parameter
      * @param d2 Command parameter
-     * @throws OLEDException
+     * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte d1, byte d2) throws OLEDException
     {
@@ -321,7 +315,7 @@ public class OLED
      * @param d1 Command parameter
      * @param d2 Command parameter
      * @param d3 Command parameter
-     * @throws OLEDException
+     * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte d1, byte d2, byte d3) throws OLEDException
     {
@@ -332,14 +326,14 @@ public class OLED
      * Send command with data array
      * @param command Command to send
      * @param data Data to send
-     * @throws OLEDException
+     * @throws OLEDException  OLED Exception
      */
-    private void Write(byte command, byte data[]) throws OLEDException
+    private void Write(byte command, byte[] data) throws OLEDException
     {
         try
         {
             DC.low();
-            SPI.write(new byte[]{command});
+            SPI.write(command);
 
             if(data != null)
             {
@@ -357,7 +351,7 @@ public class OLED
     /**
      * Exception on OLED errors
      */
-    public class OLEDException extends Exception
+    public static class OLEDException extends Exception
     {
         public OLEDException(String message)
         {
