@@ -50,7 +50,7 @@ Raspbian Buster Lite (Version: February 2020)
 Enable ssh by adding an empty file named "*ssh*" in the boot partition of the RPi SD card.
 SSH is needed for remote debugging.
 
-#### Hardware
+### Hardware
 
 The display is connected via SPI. The wiring is shown in the image below.
 ![Pinout](https://github.com/DrMarcel/RPi-1.5-OLED/blob/master/GPIO-Pinout-Diagram-OLED.png "GPIO wiring")
