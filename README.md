@@ -10,6 +10,12 @@ Raspberry Pi Java library to control Waveshare 1.5" RGB OLED SPI module (SSD1351
 * Automatic and manual repaint possible
 * Quick change between different OLEDContent objects
 
+## Demo
+
+https://www.youtube.com/watch?v=pOT1qJhlDp4
+
+[![Demo video](https://img.youtube.com/vi/pOT1qJhlDp4/0.jpg)](https://www.youtube.com/watch?v=pOT1qJhlDp4)
+
 ## Build Environment
 
 ### Raspberry Pi model 3B
