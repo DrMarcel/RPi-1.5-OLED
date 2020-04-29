@@ -1,5 +1,5 @@
 # RPi-1.5-oled
-Raspberry Pi library to control Waveshare 1.5" oled SPI module using Pi4J
+Raspberry Pi Java library to control Waveshare 1.5" RGB OLED SPI module (SSD1351) using Pi4J.
 
 ## Build Environment
 
@@ -10,27 +10,27 @@ Raspberry Pi library to control Waveshare 1.5" oled SPI module using Pi4J
 Raspbian Buster Lite (Version: February 2020)  
 *https://www.raspberrypi.org/downloads/raspbian/*
 
-#### Software
+### Software
 
-**OpenJDK 11**
+#### OpenJDK 11
 
 *https://openjdk.java.net/projects/jdk/11/*
 
 `sudo apt-get install openjdk-11`
 
-**Wiringpi**
+#### Wiringpi
 
 *http://wiringpi.com/download-and-install/*
 
 `sudo apt-get install wiringpi`
 
-**Pi4J**
+#### Pi4J
 
 *https://pi4j.com/1.2/install.html*
 
 `curl -sSL https://pi4j.com/install | sudo bash`
 
-**SSH**
+#### SSH
 
 Enable ssh by adding an empty file named "*ssh*" in the boot partition of the RPi SD card.
 SSH is needed for remote debugging.
@@ -58,9 +58,9 @@ This will run the pre-compiled oled demo.
 *Runtime version: 11.0.7+10-b875.1 amd64*  
 https://www.jetbrains.com/de-de/idea/  
 
-#### Plugins
+### Plugins
 
-**Choose Runtime**
+#### Choose Runtime
 
 Useful to download the correct SDK version. 
 After installing the plugin you can download SDK *build 11.0.7*.
@@ -70,7 +70,7 @@ The SDK path may be something like */home/username/.var/app/com.jetbrains.Intell
 
 If you are using a higher SDK version it may be possible to change the *Language Level* under *File->Project Structure...->Project* to 11. 
 
-**Embedded Linux JVM Debugger**
+#### Embedded Linux JVM Debugger
 
 Build Tool for remote debugging on the RPi.  
 After installing the plugin you get a new Template under *Run->Edit Configurations...*. 
