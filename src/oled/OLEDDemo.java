@@ -8,13 +8,17 @@ import java.io.IOException;
 
 
 //RST - GPIO 25 pin 22    DC - GPIO 24 pin 18
-public class OLEDDemo {
+public class OLEDDemo
+{
 
     public static void main(String[] args)
     {
-        try {
+        try
+        {
             new OLEDDemo();
-        } catch (OLED.OLEDException | IOException e) {
+        }
+        catch(OLED.OLEDException | IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -25,13 +29,14 @@ public class OLEDDemo {
     {
         oled = new OLED(GpioFactory.getInstance(), RaspiPin.GPIO_06, RaspiPin.GPIO_05, SpiChannel.CS0);
 
-        Clock clock = new Clock(Clock.Mode.Digital);
+        Clock        clock        = new Clock(Clock.Mode.Digital);
         ColorPalette colorPalette = new ColorPalette(ColorPalette.Mode.Bars);
-        FlyingBird flyingBird = new FlyingBird();
+        FlyingBird   flyingBird   = new FlyingBird();
 
 
         //noinspection InfiniteLoopStatement
-        while(true) {
+        while(true)
+        {
             colorPalette.SetMode(ColorPalette.Mode.Bars);
             oled.SetContent(colorPalette);
             Sleep(3000);
@@ -55,13 +60,17 @@ public class OLEDDemo {
 
     private void Sleep(int millis)
     {
-        for(int i=0; i<millis; i++)
+        for(int i = 0; i < millis; i++)
         {
             oled.RepaintIfNeeded();
             //noinspection CatchMayIgnoreException
-            try {
+            try
+            {
                 Thread.sleep(1);
-            } catch (InterruptedException e) { }
+            }
+            catch(InterruptedException e)
+            {
+            }
         }
     }
 }

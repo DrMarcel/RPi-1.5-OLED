@@ -1,15 +1,15 @@
 package oled;
 
+import oled.OLED.OLEDContent;
+import util.RessourceLoader;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import oled.OLED.*;
-import util.RessourceLoader;
-
 public class FlyingBird extends OLEDContent
 {
-    int frame=0;
+    int frame = 0;
     final BufferedImage[] BirdAsset = new BufferedImage[8];
 
     public FlyingBird() throws IOException
@@ -29,9 +29,9 @@ public class FlyingBird extends OLEDContent
     @Override
     protected void Paint(Graphics g)
     {
-        g.drawImage(BirdAsset[frame],0,0, null);
+        g.drawImage(BirdAsset[frame], 0, 0, null);
         frame++;
-        if(frame>=8) frame=0;
+        if(frame >= 8) frame = 0;
     }
 
 }

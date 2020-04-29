@@ -31,10 +31,11 @@ public class OLED
 
     /**
      * Create new OLED Object
+     *
      * @param gpioController Initialized GPIO controller
-     * @param pinRST Reset Pin
-     * @param pinDC DC Pin
-     * @param channel SPI channel
+     * @param pinRST         Reset Pin
+     * @param pinDC          DC Pin
+     * @param channel        SPI channel
      * @throws OLEDException OLED Exception
      */
     public OLED(GpioController gpioController, Pin pinRST, Pin pinDC, SpiChannel channel) throws OLEDException
@@ -127,6 +128,7 @@ public class OLED
 
     /**
      * Set display content
+     *
      * @param c Display content to draw or null
      */
     public void SetContent(OLEDContent c)
@@ -144,7 +146,7 @@ public class OLED
 
         //Empty data
         final int parLines = 4; // send 4 lines at once - maximum payload length restricted by the SPI driver
-        byte[] lclear = new byte[WIDTH * HEIGHT * 3 / parLines];
+        byte[]    lclear   = new byte[WIDTH * HEIGHT * 3 / parLines];
         for(int i = 0; i < HEIGHT / parLines; i++)
         {
             Write(WRITE_COMMAND, lclear);
@@ -161,13 +163,14 @@ public class OLED
      */
     public static abstract class OLEDContent
     {
-        private AtomicBoolean repaint            = new AtomicBoolean(false);
-        private boolean       autorefresh        = false;
-        private int  framerate         = 20;
-        private long lastRepaintMillis = 0;
+        private AtomicBoolean repaint           = new AtomicBoolean(false);
+        private boolean       autorefresh       = false;
+        private int           framerate         = 20;
+        private long          lastRepaintMillis = 0;
 
         /**
          * Enable auto refresh to call Paint(...) automatically with the given framerate
+         *
          * @param framerate Framerate
          */
         protected void EnableAutoRefresh(int framerate)
@@ -194,6 +197,7 @@ public class OLED
 
         /**
          * Check if the display content needs repaint
+         *
          * @return true if invalidated
          */
         protected boolean Invalidated()
@@ -203,6 +207,7 @@ public class OLED
 
         /**
          * Overwrite this method to draw on the display
+         *
          * @param g Graphics Object of the display
          */
         protected abstract void Paint(Graphics g);
@@ -238,6 +243,7 @@ public class OLED
 
     /**
      * Initialize display parameters
+     *
      * @throws OLEDException OLED Exception
      */
     private void Initialize() throws OLEDException
@@ -278,6 +284,7 @@ public class OLED
 
     /**
      * Send command
+     *
      * @param command Command to send
      * @throws OLEDException OLED Exception
      */
@@ -288,8 +295,9 @@ public class OLED
 
     /**
      * Send command with parameter
+     *
      * @param command Command to send
-     * @param d1 Command parameter
+     * @param d1      Command parameter
      * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte d1) throws OLEDException
@@ -299,9 +307,10 @@ public class OLED
 
     /**
      * Send command with multiple parameter
+     *
      * @param command Command to send
-     * @param d1 Command parameter
-     * @param d2 Command parameter
+     * @param d1      Command parameter
+     * @param d2      Command parameter
      * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte d1, byte d2) throws OLEDException
@@ -311,10 +320,11 @@ public class OLED
 
     /**
      * Send command with multiple parameter
+     *
      * @param command Command to send
-     * @param d1 Command parameter
-     * @param d2 Command parameter
-     * @param d3 Command parameter
+     * @param d1      Command parameter
+     * @param d2      Command parameter
+     * @param d3      Command parameter
      * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte d1, byte d2, byte d3) throws OLEDException
@@ -324,9 +334,10 @@ public class OLED
 
     /**
      * Send command with data array
+     *
      * @param command Command to send
-     * @param data Data to send
-     * @throws OLEDException  OLED Exception
+     * @param data    Data to send
+     * @throws OLEDException OLED Exception
      */
     private void Write(byte command, byte[] data) throws OLEDException
     {
