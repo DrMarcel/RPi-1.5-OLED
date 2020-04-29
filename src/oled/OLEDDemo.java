@@ -4,7 +4,6 @@ import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.RaspiPin;
 import com.pi4j.io.spi.SpiChannel;
 
-import java.awt.*;
 import java.io.IOException;
 
 
@@ -15,9 +14,7 @@ public class OLEDDemo {
     {
         try {
             new OLEDDemo();
-        } catch (OLED.OLEDException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (OLED.OLEDException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -33,6 +30,7 @@ public class OLEDDemo {
         FlyingBird flyingBird = new FlyingBird();
 
 
+        //noinspection InfiniteLoopStatement
         while(true) {
             colorPalette.SetMode(ColorPalette.Mode.Bars);
             oled.SetContent(colorPalette);
@@ -60,6 +58,7 @@ public class OLEDDemo {
         for(int i=0; i<millis; i++)
         {
             oled.RepaintIfNeeded();
+            //noinspection CatchMayIgnoreException
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) { }
