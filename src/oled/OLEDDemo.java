@@ -17,24 +17,52 @@ public class OLEDDemo {
             new OLEDDemo();
         } catch (OLED.OLEDException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public OLEDDemo() throws OLED.OLEDException, InterruptedException, IOException
+    OLED oled;
+
+    public OLEDDemo() throws OLED.OLEDException, IOException
     {
-        OLED oled = new OLED(GpioFactory.getInstance(), RaspiPin.GPIO_06, RaspiPin.GPIO_05, SpiChannel.CS0);
+        oled = new OLED(GpioFactory.getInstance(), RaspiPin.GPIO_06, RaspiPin.GPIO_05, SpiChannel.CS0);
+
+        Clock clock = new Clock(Clock.Mode.Digital);
+        ColorPalette colorPalette = new ColorPalette(ColorPalette.Mode.Bars);
         FlyingBird flyingBird = new FlyingBird();
 
-        oled.SetContent(flyingBird);
 
-        for(int i=0; i<10000; i++)
+        while(true) {
+            colorPalette.SetMode(ColorPalette.Mode.Bars);
+            oled.SetContent(colorPalette);
+            Sleep(3000);
+
+            clock.SetMode(Clock.Mode.Digital);
+            oled.SetContent(clock);
+            Sleep(10000);
+
+            colorPalette.SetMode(ColorPalette.Mode.Smooth);
+            oled.SetContent(colorPalette);
+            Sleep(3000);
+
+            clock.SetMode(Clock.Mode.Analog);
+            oled.SetContent(clock);
+            Sleep(10000);
+
+            oled.SetContent(flyingBird);
+            Sleep(5000);
+        }
+    }
+
+    private void Sleep(int millis)
+    {
+        for(int i=0; i<millis; i++)
         {
             oled.RepaintIfNeeded();
-            Thread.sleep(1);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) { }
         }
     }
 }
