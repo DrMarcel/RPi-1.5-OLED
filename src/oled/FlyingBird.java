@@ -10,7 +10,7 @@ import util.RessourceLoader;
 public class FlyingBird extends OLEDContent
 {
     int frame=0;
-    BufferedImage[] BirdAsset = new BufferedImage[8];
+    final BufferedImage[] BirdAsset = new BufferedImage[8];
 
     public FlyingBird() throws IOException
     {
