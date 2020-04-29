@@ -4,6 +4,11 @@ import oled.OLED.OLEDContent;
 
 import java.awt.*;
 
+/**
+ * Demo diplay content: Auto refresh disabled, basic draw methods
+ * <br> <br>
+ * Shows a color palette, two modes available
+ */
 public class ColorPalette extends OLEDContent
 {
     public enum Mode

@@ -146,7 +146,7 @@ public class OLED
 
         //Empty data
         final int parLines = 4; // send 4 lines at once - maximum payload length restricted by the SPI driver
-        byte[]    lclear   = new byte[WIDTH * HEIGHT * 3 / parLines];
+        byte[]    lclear   = new byte[WIDTH * 3 * parLines];
         for(int i = 0; i < HEIGHT / parLines; i++)
         {
             Write(WRITE_COMMAND, lclear);

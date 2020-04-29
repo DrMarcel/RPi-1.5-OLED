@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Demo diplay content: Auto refresh enabled, image output, loading image ressources
+ * <br> <br>
+ * Shows a flying bird animation
+ */
 public class FlyingBird extends OLEDContent
 {
     int frame = 0;

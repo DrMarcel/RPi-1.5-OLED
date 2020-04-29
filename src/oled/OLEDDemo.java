@@ -6,18 +6,28 @@ import com.pi4j.io.spi.SpiChannel;
 
 import java.io.IOException;
 
+import oled.OLED.*;
+
 
 //RST - GPIO 25 pin 22    DC - GPIO 24 pin 18
+
+/**
+ * Waveshare 1.5" RGB OLED demo code. See GitHub page for more info.
+ * <br> <br>
+ * Contact: oled@mail.perske.eu
+ * GitHub: https://github.com/DrMarcel/RPi-1.5-OLED
+ * Licence: CC0
+ * @author DrMarcel
+ */
 public class OLEDDemo
 {
-
     public static void main(String[] args)
     {
         try
         {
             new OLEDDemo();
         }
-        catch(OLED.OLEDException | IOException e)
+        catch(OLEDException | IOException e)
         {
             e.printStackTrace();
         }
@@ -25,14 +35,20 @@ public class OLEDDemo
 
     OLED oled;
 
-    public OLEDDemo() throws OLED.OLEDException, IOException
+    /**
+     * Create new OLED demo and stay in infinite loop.
+     * @throws OLEDException OLEDException
+     * @throws IOException IOException
+     */
+    public OLEDDemo() throws OLEDException, IOException
     {
+        //Initialize OLED
         oled = new OLED(GpioFactory.getInstance(), RaspiPin.GPIO_06, RaspiPin.GPIO_05, SpiChannel.CS0);
 
+        //Initialize display content
         Clock        clock        = new Clock(Clock.Mode.Digital);
         ColorPalette colorPalette = new ColorPalette(ColorPalette.Mode.Bars);
         FlyingBird   flyingBird   = new FlyingBird();
-
 
         //noinspection InfiniteLoopStatement
         while(true)
@@ -58,6 +74,10 @@ public class OLEDDemo
         }
     }
 
+    /**
+     * Sleep while checking for display updates.
+     * @param millis Sleep time in milliseconds
+     */
     private void Sleep(int millis)
     {
         for(int i = 0; i < millis; i++)

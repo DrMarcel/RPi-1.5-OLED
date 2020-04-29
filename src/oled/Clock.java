@@ -8,6 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Demo diplay content: Auto refresh enabled, text output, basic draw methods
+ * <br> <br>
+ * Shows either a digital or an analog clock
+ */
 public class Clock extends OLEDContent
 {
     public enum Mode
